@@ -1,19 +1,31 @@
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+
+#creating a ollama connection
 client = OpenAI(
-    base_url="http://127.0.0.1:11434/v1",
-    api_key="YOUR_API_KEY"
+    base_url = os.getenv("URL"), 
+    api_key = os.getenv("API_KEY")
 )
 
-response =client.chat.completions.create(
-    model="qwen3:1.7b",
-    messages=[
-        {
-            "role": "user",
-            "content": "hello, who are you?"
-        }
-    ]
-)
+while True :
+    user_input = input("you: ")
+    
+    if user_input.lower() in ("quit", "exit", "bye") :
+        print("LLM response stopped")
+        break
 
-# Print the assistant's message content
-print(response.choices[0].message.content)
+    response = client.chat.completions.create(
+        model = os.getenv("MODEL"), 
+        messages = [
+            {
+                "role": "user",
+                "content": user_input + "/no_think" + "talk in english"
+            }
+        ]
+    )
+
+    print("LLM response: " ) 
+    print(response.choices[0].message.content)
