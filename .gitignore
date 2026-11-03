@@ -3,3 +3,4 @@ __pycache__/
 .env
 example-assist.py
 simple-ai-assistant.py
+chunktemplate.txt
