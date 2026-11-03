@@ -49,7 +49,7 @@ tools = [
         "function" :
         {
             "name" : "get_current_time",
-            "description" : "Get the current date and time",
+            "description" : "This tool can be called when user mentioned current time or time",
             "parameters" :
             {
                 "type" : "object",
@@ -62,7 +62,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "get_current_city",
-            "description": "Returns the city of the user, use this when user specifies current location, or current city or home",
+            "description": "This tool can be called when user mentioned home or current city",
             "parameters" : {
                 "type": "object",
                 "properties": {},
@@ -75,7 +75,7 @@ tools = [
         "function" : 
         {
             "name" : "get_city_weather",
-            "description" : "Get the weather info about a city",
+            "description" : "This tool can be called when want to know weather",
             "parameters" : 
             {
                 "type" : "object",
