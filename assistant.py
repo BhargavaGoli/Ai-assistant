@@ -1,11 +1,11 @@
 #standard lib
-import json 
 import os
 #third-party lib
 from openai import OpenAI
 from dotenv import load_dotenv
+from types import SimpleNamespace
 #local_modules
-from tools import tools, run_tool
+from tools import TOOLS, run_tool
 from Utilities.utilities import log
 
 load_dotenv()
@@ -21,29 +21,64 @@ messages = [
         "role": "system",
         "content": (
             "You are a helpful assistant with access to tools.\n\n"
-
-            "TOOL RULES:\n"
-            "1. Use a tool ONLY when the user's request needs real data you cannot know: "
-            "current time, weather, or the user's city. For greetings, opinions, or general "
-            "chat, reply directly and DO NOT call any tool.\n"
-            "2. Never invent or guess time, weather, or location. If such data is needed, "
-            "you MUST get it from a tool.\n"
-            "3. Only call tools that exist. Never make up a tool name.\n\n"
-
-            "CHAINED TOOL CALLS (when one tool depends on another):\n"
-            "4. If answering needs several tools in order (e.g. find the user's city, THEN "
-            "get that city's weather), first think step by step about which tools to call "
-            "and in what order.\n"
-            "5. Then execute ONE tool at a time. Wait for each tool's result before deciding "
-            "the next tool. Use the real result of an earlier tool as the input to the next.\n"
-            "6. Stop calling tools as soon as you have enough information to answer.\n\n"
-
-            "ANSWERING:\n"
-            "7. When tool results are available, state the answer directly from those results.\n"
-            "8. Be brief. Keep the final reply under 20 words. No follow-up questions."
         )
     }
 ]
+
+def stream_data(history) :
+    stream = client.chat.completions.create(
+            model = os.getenv("MODEL"),
+            messages = history, 
+            tools = TOOLS,
+            stream = True
+    )
+
+    label_printed = False
+        
+    fullcontent = ""
+    tool_frag = {}
+    try :
+        for chunk in stream :
+            if not chunk.choices : continue 
+
+            delta = chunk.choices[0].delta
+
+            if delta.content : 
+                if not label_printed : 
+                    print("👾 llm response : ", end = "", flush = True)
+                    label_printed = True
+                print(delta.content, end = "", flush = True)
+                fullcontent += delta.content
+
+            if delta.tool_calls :
+                for tc in delta.tool_calls :
+                    idx = tc.index
+                    if idx not in tool_frag : tool_frag[tc.index] = {"id" : "", "type": "function", "function" : {"name" : "", "arguments" : ""}}
+
+                    if tc.id : tool_frag[idx]["id"] = tc.id
+                    if tc.function and tc.function.name : tool_frag[idx]["function"]["name"] += tc.function.name
+                    if tc.function and tc.function.arguments : tool_frag[idx]["function"]["arguments"] += tc.function.arguments
+    except KeyboardInterrupt :
+        print(f"\n----STOPPED BY YOU----")
+        tool_frag = {}
+
+    if label_printed : print()
+
+    return fullcontent, list(tool_frag.values())
+
+def convert_to_apiformat(calls) :
+    calls_list = []
+    for frag in calls :
+        call = SimpleNamespace(
+            id = frag["id"],
+            function = SimpleNamespace(
+                name = frag["function"]["name"],
+                arguments = frag["function"]["arguments"]
+            )
+        )
+        calls_list.append(call)
+
+    return calls_list
 
 
 log(f"{os.getenv("MODEL")}")
@@ -60,51 +95,48 @@ while True :
             "content" : prompt
         }
     )
+    
     MAX_STEPS = 5 
     for step in range(MAX_STEPS) : # Agent <-> LLM
 
-        response = client.chat.completions.create(
-            model = os.getenv("MODEL"),
-            messages = messages, 
-            tools = tools
-        )
+        content, calls = stream_data(messages) 
+        formattedcalls = convert_to_apiformat(calls) 
 
-        reply = response.choices[0].message
+        if calls == [] : break     
 
-        if not reply.tool_calls : break
+        log(f" step {step + 1} : model requested {len(calls)} tool calls")
 
-        messages.append(reply)
+        messages.append({
+            "role": "assistant",
+            "content": content,
+            "tool_calls": calls
+        })
 
-        log(f" step {step + 1} : model requested {len(reply.tool_calls)} tool calls")
-
-        for call in reply.tool_calls :
+        for call in formattedcalls :
             result = run_tool(call)
-    
-            messages.append(
-                {
-                    "role" : "tool",
-                    "tool_call_id" : call.id,
-                    "content" : result
-                }
-            )
+            messages.append({
+                "role": "tool",
+                "tool_call_id" : call.id,
+                "content": str(result) 
+            })
+
     else :
         fallback = "Sorry, I could not finish this within the step limit."
         messages.append({
             "role": "assistant", "content": fallback
         })
-        print("👽 LLM response : "+ fallback)
+        print("👾 LLM response : "+ fallback)
         continue
     
     messages.append(
         {
-            "role" : reply.role,
-            "content" : reply.content
+            "role" : "assistant",
+            "content" : content
         }
     )          
 
-    print("👽 LLM response : ", reply.content or "")
 
 
-rdt = response.model_dump()
+# rdt = response.model_dump()
 
-print(json.dumps(rdt, indent = 4))
+# print(json.dumps(rdt, indent = 4))

@@ -36,14 +36,14 @@ def get_city_weather(city) :
     """Return the weather condition of city"""
     url = f"https://wttr.in/{city}?format=3"
     response = requests.get(url, timeout=10)
-    return response.text
+    return response.text.strip()
 
 def get_current_city():
     """Return the user current city or home"""
     return "Bangalore"
 
 #TOOLS
-tools = [
+TOOLS = [
     {
         "type" : "function",
         "function" :
@@ -75,7 +75,7 @@ tools = [
         "function" : 
         {
             "name" : "get_city_weather",
-            "description" : "This tool can be called when want to know weather",
+            "description" : "This tool can be called when user want to know weather",
             "parameters" : 
             {
                 "type" : "object",

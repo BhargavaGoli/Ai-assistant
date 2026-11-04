@@ -26,7 +26,7 @@ while True :
     stream = client.chat.completions.create(
         model="qwen2.5:3b",
         messages=messages,
-        tools=tools,
+        tools=TOOLS,
         stream=True,
     )
     
