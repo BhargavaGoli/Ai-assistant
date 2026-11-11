@@ -1,0 +1,35 @@
+NIMBUS TECH - NEW EMPLOYEE ONBOARDING GUIDE
+Owner: People Operations
+
+BEFORE DAY ONE
+You will receive a welcome email 5 days before your joining date.
+Please submit your ID proof, address proof, bank details and two passport photos through the HR portal.
+Your laptop is shipped to your home address if you are joining as a remote employee.
+
+DAY ONE
+Orientation starts at 10:00 AM in the main conference room, or on video for remote joiners.
+You will meet your manager, your onboarding buddy and the HR partner for your team.
+IT will set up your company email, your VPN access and your single sign-on account.
+You will receive your employee ID card and an access card for the office.
+
+FIRST WEEK
+Complete the mandatory security awareness training within 5 working days.
+Read the code of conduct, the leave policy and the remote work policy.
+Set up your development environment using the engineering handbook.
+Your buddy will walk you through the codebase and the team's tools.
+
+FIRST 30 DAYS
+Meet your manager every week for a one-to-one meeting.
+Agree on your 30-60-90 day goals with your manager.
+Complete your first small task or bug fix, and get it reviewed and merged.
+
+PROBATION
+The probation period is 6 months for all new employees.
+A probation review is held at the end of month 3 and again at month 6.
+Employees are confirmed in writing after a successful probation review.
+
+TOOLS WE USE
+Slack for team chat, Jira for tracking work, Confluence for documents and GitHub for source code.
+
+WHO TO ASK FOR HELP
+For IT problems, raise a ticket on the IT helpdesk. For HR questions, email hr@nimbustech.example.

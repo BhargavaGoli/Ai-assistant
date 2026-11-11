@@ -1,0 +1,34 @@
+NIMBUS TECH - REMOTE AND HYBRID WORK POLICY
+Effective from: 1 April 2026
+
+PURPOSE
+This policy explains how employees can work from home or from another approved location.
+
+WORK MODELS
+Hybrid: 3 days in the office and 2 days remote each week. This is the default model.
+Fully remote: available only for roles approved by the department head and HR.
+Office-based: required for roles that need lab or hardware access.
+
+CORE HOURS
+All employees must be available between 11:00 AM and 4:00 PM India Standard Time.
+Outside core hours, employees can arrange their schedule with their manager.
+Standard working time is 8 hours a day, including a one-hour lunch break.
+
+EQUIPMENT AND ALLOWANCE
+The company provides a laptop and a monitor to every employee.
+Remote employees receive a one-time home office allowance of 15,000 INR.
+A monthly internet allowance of 1,000 INR is paid to employees working remotely at least 2 days a week.
+
+SECURITY RULES
+Always connect to the company VPN when accessing internal systems from home.
+Do not work on company data from public Wi-Fi without the VPN.
+Lock your screen when you step away from your laptop.
+Report a lost or stolen device to the IT helpdesk within 2 hours.
+
+WORKING FROM ANOTHER CITY OR COUNTRY
+Working from another city within India for up to 30 days a year needs manager approval.
+Working from another country needs approval from HR and legal, due to tax and compliance rules.
+
+MEETINGS
+Keep your camera on during team meetings unless your manager says otherwise.
+Update your status in Slack so that your team knows when you are available.

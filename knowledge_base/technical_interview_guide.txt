@@ -1,0 +1,32 @@
+NIMBUS TECH - TECHNICAL INTERVIEW GUIDE
+Audience: Interviewers and candidates for engineering roles
+
+FORMAT
+The technical interview lasts 60 minutes and is held on a video call.
+It is split into 5 minutes of introduction, 35 minutes of problem solving, 15 minutes of discussion and 5 minutes for candidate questions.
+
+CODING ROUND
+Candidates solve 2 problems in a language of their choice. Python, Java and JavaScript are the most common.
+Problems test data structures such as arrays, hash maps, stacks, queues and trees.
+Candidates are expected to explain their approach before writing code.
+Time and space complexity should be discussed for every solution.
+Running the code is optional, but candidates should dry-run it with a sample input.
+
+SYSTEM DESIGN ROUND (SENIOR ROLES)
+Candidates design a system such as a URL shortener, a chat application or a notification service.
+Topics include APIs, databases, caching, load balancing and handling failures.
+Interviewers look for clear trade-offs, not one perfect answer.
+
+AI AND DATA ROLES
+Candidates may be asked about embeddings, vector search and how large language models use tools.
+A basic question is the difference between a model's training data and the context it receives at run time.
+
+SCORING
+Each interviewer scores problem solving, code quality, communication and technical depth from 1 to 5.
+A candidate needs an average of at least 3.5 to move to the next round.
+
+TIPS FOR CANDIDATES
+Ask clarifying questions before you start coding.
+Think out loud, so the interviewer can follow your reasoning.
+It is fine to say you do not know something. Do not guess without saying so.
+Keep your camera on and test your internet connection before the call.

@@ -1,0 +1,34 @@
+NIMBUS TECH - CODE OF CONDUCT
+Applies to: All employees, contractors and interns
+
+OUR VALUES
+We act with integrity, treat people with respect, and take ownership of our work.
+
+RESPECT AT WORK
+We do not tolerate harassment, bullying or discrimination of any kind.
+This includes discrimination based on gender, age, religion, caste, disability, sexual orientation or nationality.
+Jokes, messages or images that make a colleague uncomfortable are not acceptable, online or offline.
+
+CONFLICT OF INTEREST
+Employees must tell HR if they have a personal or financial interest that could affect their work.
+Working for a competitor or a client at the same time needs written approval from HR.
+
+GIFTS AND HOSPITALITY
+Gifts worth more than 2,000 INR from a vendor or client must be declined or reported to the compliance team.
+Never accept cash or cash equivalents as a gift.
+
+CONFIDENTIAL INFORMATION
+Do not share customer data, source code or internal documents with anyone outside the company.
+This duty continues after you leave the company.
+Do not paste confidential code or customer data into public AI tools.
+
+USE OF COMPANY RESOURCES
+Company laptops and accounts are for business use. Limited personal use is allowed if it does not affect work.
+
+REPORTING CONCERNS
+Employees can report a concern to their manager, to HR or to the ethics hotline at ethics@nimbustech.example.
+Reports can be made anonymously. The company does not allow retaliation against anyone who reports a concern in good faith.
+
+CONSEQUENCES
+Breaking this code can lead to a warning, suspension or termination, depending on how serious it is.
+Illegal acts will be reported to the authorities.
