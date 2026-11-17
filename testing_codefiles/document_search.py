@@ -107,13 +107,13 @@ def load_vector_store():
     with open(VECTOR_STORE_FILE, "r", encoding = "utf-8") as f :
         return json.load(f)["chunks"]
         
-def test(query, chunks) :
+def test(chunks) :
     ans = search_query("python", chunks)
 
     for a in ans :
         #print("\n", a["name"], "-", f"{a["similarity"]:.2f}", "-", a["text"], "\n")
         print("\n", a["name"], "-", f"{a["similarity"]:.2f}", "\n")
-        
+
 if __name__ == "__main__" :
     if os.path.exists(VECTOR_STORE_FILE) :
         chunks = load_vector_store()
@@ -123,5 +123,5 @@ if __name__ == "__main__" :
         save_vector_store(chunks)
         print(f"Saved {len(chunks)} chunks to the vector store file {VECTOR_STORE_FILE}")
 
-    test(query, chunks)
+    test(chunks)
     

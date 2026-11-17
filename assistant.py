@@ -16,12 +16,24 @@ client = OpenAI(
     api_key = os.getenv("API_KEY")
 )
 
+SYSTEM_PROMPT = (
+    "You are an assistant for Nimbus Tech employees. You have tools.\n\n"
+    "RULES:\n"
+    "1. For questions about company policies, benefits, hiring or other company documents, "
+    "call search_knowledge_base, then answer ONLY from the passages it returns.\n"
+    "2. After a knowledge base answer, name the source file in square brackets, like [file_name.txt].\n"
+    "3. Only if the passages contain nothing relevant to the question, reply: 'I could not find that in the knowledge base.' Otherwise answer directly from the passages and add nothing else. \n" 
+    "Do not guess.\n"
+    "4. For the time, date, weather or the user's city, use the matching tool. Never guess these.\n"
+    "5. For greetings and general chat, reply directly without a tool.\n"
+    "6. Call one tool at a time. Use the real value from one tool as the input to the next.\n"
+    "7. Keep answers short and factual, unless the user asks for more detail."
+)
+
 messages = [
     {
         "role": "system",
-        "content": (
-            "You are a helpful assistant with access to tools.\n\n"
-        )
+        "content": SYSTEM_PROMPT,
     }
 ]
 
@@ -83,7 +95,11 @@ def convert_to_apiformat(calls) :
 
 log(f"{os.getenv("MODEL")}")
 while True :
-    prompt = input("❤️  you : ")
+    try :
+        prompt = input("❤️  you : ")
+    except KeyboardInterrupt as k :
+        print("\n --- STOPPED BY YOU --- \n")
+        break
 
     if prompt.lower() in ("exit", "bye") :
         print("llm response ended")
@@ -102,9 +118,12 @@ while True :
         content, calls = stream_data(messages) 
         formattedcalls = convert_to_apiformat(calls) 
 
-        if calls == [] : break     
+        if calls == [] :
+            log(f" step {step + 1} : final answer")
+            break
 
         log(f" step {step + 1} : model requested {len(calls)} tool calls")
+
 
         messages.append({
             "role": "assistant",

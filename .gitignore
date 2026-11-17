@@ -4,3 +4,4 @@ __pycache__/
 example-assist.py
 simple-ai-assistant.py
 chunktemplate.txt
+knowledge_base/vector_store.json

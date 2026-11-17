@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 
 from Utilities.utilities import log
+from rag import search_query
 
 
 #run tool fucntion
@@ -23,7 +24,8 @@ def run_tool(call) :
     else :
         result = "Unknown tool"
     
-    log(f"  👉 returns : {result}")
+    text = str(result)
+    log(f"  👉 returns : {text[:150]}{"..." if len(text) > 150 else ''}")
 
     return result
 
@@ -42,8 +44,50 @@ def get_current_city():
     """Return the user current city or home"""
     return "Bangalore"
 
+#rag pipeline tool
+def search_knowledge_base(query, top_k = 2) :
+    result = search_query(query, top_k)
+    log(f"📚 Searching Knowledge Base")
+
+    for r in result :
+        log(f"{r["name"]} - {r["id"]} - {r["similarity"]}")
+
+    blocks = []
+    for r in result :
+        filename = r["name"]
+        chunkid = r["id"]
+        text = r["text"]
+        blocks.append(f"{chunkid}\n{filename}\n{text}")
+
+    return "\n\n".join(blocks)       
+
 #TOOLS
 TOOLS = [
+    {
+        "type" : "function",
+        "function" :
+        {
+            "name" : "search_knowledge_base",
+            "description" : "Search the Nimbus Tech company knowledge base. It covers: leave policy, "
+                            "expense reimbursement, hiring process, technical interview guide, onboarding guide, "
+                            "remote work policy, code of conduct and performance review process. "
+                            "Use it for any question about company rules, benefits or HR processes. "
+                            "Returns the most relevant passages with their source file.",
+            "parameters" :
+            {
+                "type" : "object",
+                "properties" : 
+                {
+                    "query" :
+                    {
+                        "type" : "string",
+                        "description" : "The search query"
+                    },
+                },
+                "required" : ["query"]
+            }
+        }
+    },
     {
         "type" : "function",
         "function" :
@@ -75,7 +119,7 @@ TOOLS = [
         "function" : 
         {
             "name" : "get_city_weather",
-            "description" : "This tool can be called when user want to know weather",
+            "description" :  "Get the current weather for a city or country.",
             "parameters" : 
             {
                 "type" : "object",
@@ -96,6 +140,7 @@ TOOLS = [
 available_tools = {
     "get_current_time": get_current_time,
     "get_city_weather": get_city_weather,
-    "get_current_city": get_current_city
+    "get_current_city": get_current_city,
+    "search_knowledge_base" : search_knowledge_base,
 }
 
